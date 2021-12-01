@@ -1,0 +1,23 @@
+{
+  "name": "smarteduproject",
+  "version": "1.0.0",
+  "description": "education web site",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "keywords": [
+    "education",
+    "portal",
+    "nodejs"
+  ],
+  "author": "furkan türkoğlu",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
