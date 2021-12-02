@@ -1,7 +1,7 @@
-const express = require('express');
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const PostSchema = new Schema({
+const courseSchema = new Schema({
   name: {
     type: String,
     unique: true,
