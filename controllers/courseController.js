@@ -27,3 +27,17 @@ exports.getAllCourses = async (req, res) => {
     res.status(400).json({ status: 'failed', error });
   }
 };
+
+exports.getCourse = async (req, res) => {
+  try {
+    const slug = req.params.slug;
+    const course = await Course.findOne({ slug: slug });
+
+    res.status(200).render('course', {
+      course,
+      page_name: 'course',
+    });
+  } catch (error) {
+    res.status(400).json({ status: 'failed', error });
+  }
+};
