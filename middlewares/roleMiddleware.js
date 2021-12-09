@@ -1,5 +1,5 @@
 module.exports = (roles) => {
-  (req, res, next) => {
+  return (req, res, next) => {
     const userRole = req.body.role;
     if (roles.includes(userRole)) {
       next();
