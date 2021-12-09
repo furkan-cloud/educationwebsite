@@ -48,10 +48,12 @@ exports.getAllCourses = async (req, res) => {
 exports.getCourse = async (req, res) => {
   try {
     const slug = req.params.slug;
+    const user = await User.findById(req.session.userID);
     const course = await Course.findOne({ slug: slug }).populate('user');
 
     res.status(200).render('course', {
       course,
+      user,
       page_name: 'course',
     });
   } catch (error) {
@@ -63,6 +65,18 @@ exports.enrollCourse = async (req, res) => {
   try {
     const user = await User.findById(req.session.userID);
     await user.courses.push({ _id: req.body.course_id });
+    await user.save();
+
+    res.status(200).redirect('/users/dashboard');
+  } catch (error) {
+    res.status(400).json({ status: 'failed', error });
+  }
+};
+
+exports.releaseCourse = async (req, res) => {
+  try {
+    const user = await User.findById(req.session.userID);
+    await user.courses.pull({ _id: req.body.course_id });
     await user.save();
 
     res.status(200).redirect('/users/dashboard');
