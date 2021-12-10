@@ -10,7 +10,7 @@ exports.createCourse = async (req, res) => {
       category: req.body.category,
       user: req.session.userID,
     });
-    req.flash('success', `${course.name} created successfully`);
+    req.flash('success', `${course.name} has been created successfully`);
     res.status(201).redirect('/courses');
     // json({
     //   status: 'success',
@@ -99,6 +99,16 @@ exports.releaseCourse = async (req, res) => {
     await user.courses.pull({ _id: req.body.course_id });
     await user.save();
 
+    res.status(200).redirect('/users/dashboard');
+  } catch (error) {
+    res.status(400).json({ status: 'failed', error });
+  }
+};
+
+exports.deleteCourse = async (req, res) => {
+  try {
+    const course = await Course.findOneAndRemove({ slug: req.params.slug });
+    req.flash('error', `${course.name} has been deleted successfully`);
     res.status(200).redirect('/users/dashboard');
   } catch (error) {
     res.status(400).json({ status: 'failed', error });
